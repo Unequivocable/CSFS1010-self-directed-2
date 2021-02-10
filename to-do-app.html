@@ -142,8 +142,24 @@
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
+$(function() {
+  // Grab input value from "form-control" on Enter event
+  $( "form" ).submit(function( event ) {
+    let listItem = $( "input").val();
+    $( "ul" ).after(`<li><input type="checkbox" class="button"> ${listItem}  </li>`);
+    event.preventDefault();
+    $( "input").val("");
+  });
+  $( "body" ).on("click", "li", function() {
+    $(this).children("input").attr("checked","true");
+  })
 
+
+});
 // INSERT CODE HERE
+
+// Create new HTML <li> with value and checkbox
+// on click event of <li> checkbox fills and text greys out
 
 </script>
 </body>
