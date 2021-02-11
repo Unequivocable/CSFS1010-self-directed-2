@@ -124,6 +124,20 @@
     .check-box {
       height: 20px;
     }
+
+    li {
+      background-color: rgb(251, 229, 182);
+      padding: 15px;
+      border: 2px;
+      border-style:ridge;
+      border-color: rgb(32, 32, 32);
+      position: relative;
+    }
+    .delete {
+      position: absolute;
+      right: 10px;
+      top: 22px;
+    }
   </style>
 </head>
 <body>
@@ -151,7 +165,7 @@ $(function() {
   $( "form" ).submit(function( event ) {
     let listItem = $( "input").val();
     if(listItem){
-      $( `<li><input type="checkbox" class="check-box"> ${listItem}</li>`).prependTo("ul");
+      $( `<li><input type="checkbox" class="check-box"> ${listItem}<button type="button" class="delete">Delete</button></li>`).prependTo("ul");
       event.preventDefault();
       $( "input").val("");
     }else {
@@ -159,14 +173,19 @@ $(function() {
       event.preventDefault();
     }
   });
+
+  $( "ul" ).on("click", "button", function() {
+      $(this).parent("li").remove();
+    })
+
   $( "body" ).on("click", "li", function() {
     if(  $(this).children("input").prop("checked" ) === false ){
       $(this).children("input").prop("checked",true);
-      $(this).css("color", "gray")
+      $(this).css({"color": "gray", "background-color": "rgb(189, 174, 134)"})
       $(this).appendTo( "ul" );
     } else {
       $(this).children("input").prop("checked",false);
-      $(this).css("color", "inherit")
+      $(this).css({"color": "inherit", "background-color": "inherit"})
       $(this).prependTo( "ul" );
     }
   })
