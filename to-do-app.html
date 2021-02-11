@@ -43,8 +43,9 @@
     }
 
     ul, ol {
-      margin-top: 0;
+      margin-top: 30px;
       margin-bottom: 10px;
+      list-style-type: none;
     }
 
     ul li {
@@ -119,6 +120,10 @@
     .text-muted {
       color: #999;
     }  
+
+    .check-box {
+      height: 20px;
+    }
   </style>
 </head>
 <body>
@@ -143,23 +148,31 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
 $(function() {
-  // Grab input value from "form-control" on Enter event
   $( "form" ).submit(function( event ) {
     let listItem = $( "input").val();
-    $( "ul" ).after(`<li><input type="checkbox" class="button"> ${listItem}  </li>`);
-    event.preventDefault();
-    $( "input").val("");
+    if(listItem){
+      $( `<li><input type="checkbox" class="check-box"> ${listItem}</li>`).prependTo("ul");
+      event.preventDefault();
+      $( "input").val("");
+    }else {
+      alert("Please add an item in the text box before hitting enter.")
+      event.preventDefault();
+    }
   });
   $( "body" ).on("click", "li", function() {
-    $(this).children("input").attr("checked","true");
+    if(  $(this).children("input").prop("checked" ) === false ){
+      $(this).children("input").prop("checked",true);
+      $(this).css("color", "gray")
+      $(this).appendTo( "ul" );
+    } else {
+      $(this).children("input").prop("checked",false);
+      $(this).css("color", "inherit")
+      $(this).prependTo( "ul" );
+    }
   })
 
 
 });
-// INSERT CODE HERE
-
-// Create new HTML <li> with value and checkbox
-// on click event of <li> checkbox fills and text greys out
 
 </script>
 </body>
