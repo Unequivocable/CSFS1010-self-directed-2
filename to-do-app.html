@@ -45,6 +45,7 @@
     ul, ol {
       margin-top: 30px;
       margin-bottom: 10px;
+      width: 100%;
       list-style-type: none;
     }
 
@@ -63,8 +64,8 @@
       font-size: 21px;
       font-weight: 200;
       line-height: 2.1;
-      color: inherit;
-      background-color: #eee;
+      color: #2c3347;
+      background-color: #ffef8f;
     }
 
     main h1 {
@@ -122,20 +123,23 @@
     }  
 
     .check-box {
-      height: 20px;
+      height: 16px;
     }
 
     li {
-      background-color: rgb(251, 229, 182);
-      padding: 15px;
+      background-color: #ffe757;
+      padding: 16px;
+      width: 92%;
+      margin: 8px;
       border: 2px;
       border-style:ridge;
-      border-color: rgb(32, 32, 32);
+      border-color: #2c3347;
       position: relative;
+      color: #2c3347;
     }
     .delete {
       position: absolute;
-      right: 10px;
+      right: 16px;
       top: 22px;
     }
   </style>
@@ -174,9 +178,13 @@ $(function() {
     }
   });
 
+  //Delete entry
+
   $( "ul" ).on("click", "button", function() {
       $(this).parent("li").remove();
     })
+
+  // Checks box and greys out entry if it hasn't been selected.  On re-click it undoes both.
 
   $( "body" ).on("click", "li", function() {
     if(  $(this).children("input").prop("checked" ) === false ){
@@ -185,11 +193,20 @@ $(function() {
       $(this).appendTo( "ul" );
     } else {
       $(this).children("input").prop("checked",false);
-      $(this).css({"color": "inherit", "background-color": "inherit"})
+      $(this).css({"color": "inherit", "background-color": "#ffe757"})
       $(this).prependTo( "ul" );
     }
   })
+  
+  // Makes direct clicks on checkbox also work
 
+  $( "body" ).on("click", "input[type=checkbox]", function() {
+    if(  $(this).prop("checked" ) === false ){
+      $(this).prop("checked",true);
+    } else {
+      $(this).prop("checked",false);
+    }
+  })
 
 });
 
